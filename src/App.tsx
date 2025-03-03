@@ -1,15 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import { CounterContext } from './CounterContext';
-import { CounterButton } from './components/CounterButton';
+import "./App.css";
+import { CounterProvider } from "./CounterContext";
+import { CounterButton } from "./components/CounterButton";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-      <CounterContext.Provider value={{ currentCount: count, updateCount: setCount }}>
-        <CounterButton />
-      </CounterContext.Provider>
+    <CounterProvider>
+      <CounterButton />
+    </CounterProvider>
   );
 }
-export default App
+export default App;

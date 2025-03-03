@@ -1,27 +1,42 @@
-import { useToast } from "@chakra-ui/toast";
+import {
+  Button,
+  Text,
+  useToast,
+  Flex,
+  Container,
+  HStack,
+} from "@chakra-ui/react";
 import { useCounterContext } from "../CounterContext";
+import "../index.css";
 
 export function CounterButton() {
-  const { currentCount, updateCount } = useCounterContext();
+  const { currentCount: count, increment } = useCounterContext();
   const toast = useToast();
-  const updateCountForToast = (count: number) => {
-    updateCount(count);
+
+  const handleIncrement = () => {
+    increment();
     toast({
-      title: "Count Updated",
-      description: `Current Count: ${count}`,
+      title: "Incremented",
+      description: `Counter is now ${count + 1}`,
       status: "success",
-      duration: 2000,
+      duration: 1000,
       isClosable: true,
+      position: "top-right",
+      variant: "solid",
+      // Add custom toast styling if needed
     });
-  }
+  };
 
   return (
-    <div className="flex-container">
-      <p >Current Count: {currentCount}</p>
-      <button onClick={() => updateCountForToast(currentCount + 1)}>
-        +1
-      </button>
-    </div>
+    <Container height="100vh">
+      <Flex height="100%" justifyContent="center" alignItems="center">
+        <HStack spacing={6}>
+          <Text fontSize="2xl">Current count {count}</Text>
+          <Button onClick={handleIncrement} className="button">
+            +1
+          </Button>
+        </HStack>
+      </Flex>
+    </Container>
   );
 }
-
